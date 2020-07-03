@@ -1,15 +1,14 @@
-module github.com/kevholditch/terraform-provider-kong
+module github.com/bjoernHeneka/terraform-provider-kong
 
 go 1.12
 
 require (
-	github.com/Azure/go-ansiterm v0.0.0-20170929234023-d6e3b3328b78 // indirect
-	github.com/Microsoft/go-winio v0.4.14 // indirect
-	github.com/elazarl/goproxy v0.0.0-20190421051319-9d40249d3c2f // indirect
-	github.com/elazarl/goproxy/ext v0.0.0-20190421051319-9d40249d3c2f // indirect
-	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
+	github.com/bjoernHeneka/gokong v1.9.1-0.20200703061727-fcb852210173
+	github.com/hashicorp/go-version v1.2.1 // indirect; indireclatestt
 	github.com/hashicorp/terraform-plugin-sdk v1.7.0
-	github.com/kevholditch/gokong v0.0.0-20191114132141-305470f01f9a
-	github.com/smartystreets/goconvey v1.6.4 // indirect
-	gotest.tools v2.2.0+incompatible // indirect
+	github.com/mitchellh/gox v1.0.1 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	golang.org/x/net v0.0.0-20200625001655-4c5254603344 // indirect
 )
+
+//replace github.com/bjoernHeneka/gokong v5.0.0+incompatible => /Users/bheneka/Projects/opensource/gokong

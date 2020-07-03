@@ -3,8 +3,8 @@ package kong
 import (
 	"fmt"
 
+	"github.com/bjoernHeneka/gokong"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/kevholditch/gokong"
 )
 
 func resourceKongSni() *schema.Resource {

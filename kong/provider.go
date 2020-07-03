@@ -3,9 +3,9 @@ package kong
 import (
 	"os"
 
+	"github.com/bjoernHeneka/gokong"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/kevholditch/gokong"
 )
 
 type config struct {

@@ -3,8 +3,8 @@ package kong
 import (
 	"fmt"
 
+	"github.com/bjoernHeneka/gokong"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/kevholditch/gokong"
 )
 
 func resourceKongCertificate() *schema.Resource {
@@ -29,6 +29,12 @@ func resourceKongCertificate() *schema.Resource {
 				Optional:  true,
 				ForceNew:  false,
 				Sensitive: true,
+			},
+			"tags": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				ForceNew: false,
+				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
@@ -81,6 +87,10 @@ func resourceKongCertificateRead(d *schema.ResourceData, meta interface{}) error
 		if certificate.Key != nil {
 			d.Set("private_key", certificate.Key)
 		}
+
+		if certificate.Tags != nil {
+			d.Set("tags", gokong.StringValueSlice(certificate.Tags))
+		}
 	}
 
 	return nil
@@ -103,6 +113,7 @@ func createKongCertificateRequestFromResourceData(d *schema.ResourceData) *gokon
 
 	certificateRequest.Cert = readStringPtrFromResource(d, "certificate")
 	certificateRequest.Key = readStringPtrFromResource(d, "private_key")
+	certificateRequest.Tags = readStringArrayPtrFromResource(d, "tags")
 
 	return certificateRequest
 }

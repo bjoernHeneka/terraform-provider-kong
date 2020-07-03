@@ -3,8 +3,8 @@ package kong
 import (
 	"fmt"
 
+	"github.com/bjoernHeneka/gokong"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/kevholditch/gokong"
 )
 
 func resourceKongConsumer() *schema.Resource {
@@ -27,6 +27,12 @@ func resourceKongConsumer() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: false,
+			},
+			"tags": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				ForceNew: false,
+				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
@@ -74,7 +80,13 @@ func resourceKongConsumerRead(d *schema.ResourceData, meta interface{}) error {
 		d.SetId("")
 	} else {
 		d.Set("username", consumer.Username)
-		d.Set("custom_id", consumer.CustomId)
+
+		if consumer.CustomId != "" {
+			d.Set("custom_id", consumer.CustomId)
+		}
+		if consumer.Tags != nil {
+			d.Set("tags", gokong.StringValueSlice(consumer.Tags))
+		}
 	}
 
 	return nil
@@ -97,6 +109,7 @@ func createKongConsumerRequestFromResourceData(d *schema.ResourceData) *gokong.C
 
 	consumerRequest.Username = readStringFromResource(d, "username")
 	consumerRequest.CustomId = readStringFromResource(d, "custom_id")
+	consumerRequest.Tags = readStringArrayPtrFromResource(d, "tags")
 
 	return consumerRequest
 }

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/bjoernHeneka/gokong"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/kevholditch/gokong"
 )
 
 func resourceKongTarget() *schema.Resource {

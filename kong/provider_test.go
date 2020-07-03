@@ -5,10 +5,10 @@ import (
 	"os"
 	"testing"
 
+	"github.com/bjoernHeneka/gokong"
+	"github.com/bjoernHeneka/gokong/containers"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/terraform"
-	"github.com/kevholditch/gokong"
-	"github.com/kevholditch/gokong/containers"
 )
 
 const defaultKongVersion = "1.0.2"

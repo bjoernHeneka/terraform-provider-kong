@@ -1,8 +1,8 @@
 package kong
 
 import (
+	"github.com/bjoernHeneka/gokong"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/kevholditch/gokong"
 )
 
 func readStringArrayPtrFromResource(d *schema.ResourceData, key string) []*string {

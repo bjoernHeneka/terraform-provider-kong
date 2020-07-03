@@ -3,8 +3,8 @@ package kong
 import (
 	"fmt"
 
+	"github.com/bjoernHeneka/gokong"
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
-	"github.com/kevholditch/gokong"
 )
 
 func resourceKongService() *schema.Resource {
@@ -67,6 +67,12 @@ func resourceKongService() *schema.Resource {
 				Optional: true,
 				ForceNew: false,
 				Default:  60000,
+			},
+			"tags": &schema.Schema{
+				Type:     schema.TypeList,
+				Optional: true,
+				ForceNew: false,
+				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 		},
 	}
@@ -146,6 +152,11 @@ func resourceKongServiceRead(d *schema.ResourceData, meta interface{}) error {
 		if service.ReadTimeout != nil {
 			d.Set("read_timeout", service.ReadTimeout)
 		}
+
+		if service.Tags != nil {
+			d.Set("tags", gokong.StringValueSlice(service.Tags))
+		}
+
 	}
 
 	return nil
@@ -173,5 +184,6 @@ func createKongServiceRequestFromResourceData(d *schema.ResourceData) *gokong.Se
 		ConnectTimeout: readIntPtrFromResource(d, "connect_timeout"),
 		WriteTimeout:   readIntPtrFromResource(d, "write_timeout"),
 		ReadTimeout:    readIntPtrFromResource(d, "read_timeout"),
+		Tags:           readStringArrayPtrFromResource(d, "tags"),
 	}
 }

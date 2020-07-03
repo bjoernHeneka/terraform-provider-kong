@@ -20,6 +20,10 @@ build-gox: deps vet
 	gox -osarch="linux/amd64 windows/amd64 darwin/amd64" \
 	-output="pkg/{{.OS}}_{{.Arch}}/terraform-provider-kong" .
 
+devbuild: build-gox
+	rm ~/.terraform.d/plugins/terraform-provider-kong
+	ln -s /Users/bheneka/Projects/opensource/terraform-provider-kong/pkg/darwin_amd64/terraform-provider-kong ~/.terraform.d/plugins/terraform-provider-kong
+
 release:
 	@curl -sL http://git.io/goreleaser | bash
 
